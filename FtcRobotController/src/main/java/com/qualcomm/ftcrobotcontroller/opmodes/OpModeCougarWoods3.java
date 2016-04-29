@@ -24,7 +24,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private double backRightPowerB = 0;
   private double backLeftPowerB = 0;
 
-
   private DcMotor backLeft;
   private DcMotor backRight;
   private DcMotor frontLeft;
@@ -32,7 +31,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private DcMotor golfClub;
 
   private boolean isIncreasingSwing = false;
-
   private boolean isDecreasingSwing = false;
 
   @Override
@@ -87,6 +85,20 @@ public class OpModeCougarWoods3 extends OpMode{
       frontLeft.setPower(1);
       backRight.setPower(1);
       backLeft.setPower(1);
+    }
+
+    if (gamepad1.left_bumper) {
+      frontRight.setPower(1);
+      frontLeft.setPower(0);
+      backRight.setPower(0);
+      backLeft.setPower(1);
+    }
+
+    if (gamepad1.right_bumper) {
+      frontRight.setPower(0);
+      frontLeft.setPower(1);
+      backRight.setPower(1);
+      backLeft.setPower(0);
     }
 
     if (gamepad1.left_trigger >= 0.1){
