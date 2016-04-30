@@ -128,7 +128,7 @@ public class OpModeCougarWoods3 extends OpMode{
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
 
-    if (fro > 0 || flo > 0 || bro > 0 || blo > 0) {
+    if (fro > 0 || flo > 0) {
       overrideMovement = true;
     }
 
