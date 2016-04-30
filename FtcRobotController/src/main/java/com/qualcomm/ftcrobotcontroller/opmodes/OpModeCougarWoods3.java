@@ -23,7 +23,7 @@ public class OpModeCougarWoods3 extends OpMode{
   private double frontLeftPowerPost = 0;
   private double backRightPowerPost = 0;
   private double backLeftPowerPost = 0;
-  private boolean overrideMovement = false;
+  private boolean overrideWheels = false;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -91,6 +91,7 @@ public class OpModeCougarWoods3 extends OpMode{
       flo = 1;
       bro = 1;
       blo = 1;
+      overrideWheels = true;
     }
 
     if (gamepad1.left_bumper && !gamepad1.right_bumper) {
@@ -98,6 +99,7 @@ public class OpModeCougarWoods3 extends OpMode{
       flo = 0;
       bro = 0;
       blo = 1;
+      overrideWheels = true;
     }
 
     if (gamepad1.right_bumper && !gamepad1.left_bumper) {
@@ -105,7 +107,21 @@ public class OpModeCougarWoods3 extends OpMode{
       flo = 1;
       bro = 1;
       blo = 0;
+      overrideWheels = true;
     }
+
+    if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+      fro = -1;
+      flo = -1;
+      bro = -1;
+      blo = -1;
+      overrideWheels = true;
+    }
+    
+    if (!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+      overrideWheels = false;
+    }
+  
 
     if (gamepad1.left_trigger >= 0.1){
       frt += gamepad1.left_trigger;
@@ -127,12 +143,8 @@ public class OpModeCougarWoods3 extends OpMode{
     backLeftPowerPre = blm + blt;
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
-
-    if (fro > 0 || flo > 0) {
-      overrideMovement = true;
-    }
-
-    if (overrideMovement) {
+    
+    if (overrideWheels) {
       frontRight.setPower(fro);
       frontLeft.setPower(flo);
       backRight.setPower(bro);
