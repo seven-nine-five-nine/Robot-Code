@@ -79,6 +79,7 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
+    double bpw = 0.5;
     // double floats for movement
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
@@ -110,34 +111,34 @@ public class OpModeCougarWoods3 extends OpMode{
     }
 
     if ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
-      frontRightPowerOPre = 0.5;
-      frontLeftPowerOPre = 0.5;
-      backRightPowerOPre = 0.5;
-      backLeftPowerOPre = 0.5;
+      frontRightPowerOPre = bpw;
+      frontLeftPowerOPre = bpw;
+      backRightPowerOPre = bpw;
+      backLeftPowerOPre = bpw;
       overrideWheels = true;
     }
 
     if (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
-      frontRightPowerOPre = 0.5;
+      frontRightPowerOPre = bpw;
       frontLeftPowerOPre = 0;
       backRightPowerOPre = 0;
-      backLeftPowerOPre = 0.5;
+      backLeftPowerOPre = bpw;
       overrideWheels = true;
     }
 
     if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
       frontRightPowerOPre = 0;
-      frontLeftPowerOPre = 0.5;
-      backRightPowerOPre = 0.5;
+      frontLeftPowerOPre = bpw;
+      backRightPowerOPre = bpw;
       backLeftPowerOPre = 0;
       overrideWheels = true;
     }
 
     if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
-      frontRightPowerOPre = -0.5;
-      frontLeftPowerOPre = -0.5;
-      backRightPowerOPre = -0.5;
-      backRightPowerOPre = -0.5;
+      frontRightPowerOPre = -bpw;
+      frontLeftPowerOPre = -bpw;
+      backRightPowerOPre = -bpw;
+      backRightPowerOPre = -bpw;
       overrideWheels = true;
     }
     
@@ -201,7 +202,7 @@ public class OpModeCougarWoods3 extends OpMode{
       backRight.setPower(backRightPowerOPost);
       backLeft.setPower(backLeftPowerOPost);
     } else {
-      frontRight.setPower(frontRightPowerPost);
+      frontRight.setPower(frontRightPowerPost);3
       frontLeft.setPower(frontLeftPowerPost);
       backRight.setPower(backRightPowerPost);
       backLeft.setPower(backLeftPowerPost);
