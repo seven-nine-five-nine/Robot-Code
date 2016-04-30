@@ -168,12 +168,16 @@ public class OpModeCougarWoods3 extends OpMode{
     }
 
     if (!overrideWheels) {
-      movementSpeed = lr;
+      if (lr > 0 || lr < 0) {
+        movementSpeed = lr;
+      }
     } else {
       movementSpeed = (0.5 + wheelSpeedMod);
     }
 
-    //telemetry.addData("SPEED", movementSpeed);
+    //if (movementSpeed > 0 || movementSpeed < 0) {
+    //  telemetry.addData("SPEED", movementSpeed);
+    //}
 
     frontRightPowerPre = frm + frt;
     frontLeftPowerPre = flm + flt;
