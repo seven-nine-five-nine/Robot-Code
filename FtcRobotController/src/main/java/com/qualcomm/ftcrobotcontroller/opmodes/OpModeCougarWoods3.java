@@ -82,8 +82,8 @@ public class OpModeCougarWoods3 extends OpMode{
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
     double lr = 0;
-    
-    if (lx >= 0.05 || lx <= 0.05 || ly >= 0.05 || ly <= 0.05) {
+
+    if (lx >= 0.05 || lx <= -0.05 || ly >= 0.05 || ly <= -0.05) {
       lr = Math.sqrt((ly * ly) + (lx * lx));
     }
 
