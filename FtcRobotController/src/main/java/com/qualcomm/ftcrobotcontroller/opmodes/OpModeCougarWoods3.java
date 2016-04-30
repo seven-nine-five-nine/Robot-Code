@@ -81,7 +81,11 @@ public class OpModeCougarWoods3 extends OpMode{
     // integers for movement
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
-    double lr = Math.sqrt((ly * ly) + (lx * lx));
+    double lr = 0;
+    
+    if (lx >= 0.05 || lx <= 0.05 || ly >= 0.05 || ly <= 0.05) {
+      lr = Math.sqrt((ly * ly) + (lx * lx));
+    }
 
     if ((gamepad1.left_stick_y >= 0.05) || (gamepad1.left_stick_y <= -0.05)) {
       frm += gamepad1.left_stick_y;
@@ -97,35 +101,35 @@ public class OpModeCougarWoods3 extends OpMode{
       blm += gamepad1.left_stick_x;
     }
 
-    if ((gamepad1.left_bumper) && (gamepad1.right_bumper)) {
-      frontRightPowerOverridePre = 1;
-      frontLeftPowerOverridePre = 1;
-      backRightPowerOverridePre = 1;
-      backLeftPowerOverridePre = 1;
+    if ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
+      frontRightPowerOverridePre = 0.5;
+      frontLeftPowerOverridePre = 0.5;
+      backRightPowerOverridePre = 0.5;
+      backLeftPowerOverridePre = 0.5;
       overrideWheels = true;
     }
 
-    if (gamepad1.left_bumper && !gamepad1.right_bumper) {
-      frontRightPowerOverridePre = 1;
+    if (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
+      frontRightPowerOverridePre = 0.5;
       frontLeftPowerOverridePre = 0;
       backRightPowerOverridePre = 0;
-      backLeftPowerOverridePre = 1;
+      backLeftPowerOverridePre = 0.5;
       overrideWheels = true;
     }
 
-    if (gamepad1.right_bumper && !gamepad1.left_bumper) {
+    if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
       frontRightPowerOverridePre = 0;
-      frontLeftPowerOverridePre = 1;
-      backRightPowerOverridePre = 1;
+      frontLeftPowerOverridePre = 0.5;
+      backRightPowerOverridePre = 0.5;
       backLeftPowerOverridePre = 0;
       overrideWheels = true;
     }
 
     if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
-      frontRightPowerOverridePre = -1;
-      frontLeftPowerOverridePre = -1;
-      backRightPowerOverridePre = -1;
-      backRightPowerOverridePre = -1;
+      frontRightPowerOverridePre = -0.5;
+      frontLeftPowerOverridePre = -0.5;
+      backRightPowerOverridePre = -0.5;
+      backRightPowerOverridePre = -0.5;
       overrideWheels = true;
     }
     
@@ -161,7 +165,11 @@ public class OpModeCougarWoods3 extends OpMode{
       blt += gamepad1.right_trigger;
     }
 
-    movementSpeed = lr;
+    if (overrideWheels) {
+      movementSpeed = (0.5 + wheelSpeedMod);
+    } else {
+      movementSpeed = lr;
+    }
 
     //telemetry.addData("SPEED", movementSpeed);
 
