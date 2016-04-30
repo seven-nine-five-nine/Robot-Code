@@ -44,8 +44,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private boolean isIncreasingSwing = false;
   private boolean isDecreasingSwing = false;
   //misc. golfing variables
-  private double movementSpeed = 0;
-  //used for display
 
   @Override
   public void init() {
@@ -80,21 +78,13 @@ public class OpModeCougarWoods3 extends OpMode{
     double brt = 0;
     double blt = 0;
     // double floats for movement
-    double lx = gamepad1.left_stick_x;
-    double ly = gamepad1.left_stick_y;
-    double lr = 0;
-    // double floats for display
-    double min = 0.05;
     double cs = 0.05;
     double bpw = 0.5;
+    double min = 0.05;
     // double floats for easy changes
     boolean lt;
     boolean rt;
     // boolean for an "if" statement.
-
-    if (lx >= min || lx <= -min || ly >= min || ly <= -min) {
-      lr = (100 * (Math.abs(lx) + Math.abs(ly)));
-    }
 
     if ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
       frm += gamepad1.left_stick_y;
@@ -178,18 +168,6 @@ public class OpModeCougarWoods3 extends OpMode{
       rt = false;
     }
 
-    if (!overrideWheels) {
-      if (lr > 0 || lr < 0) {
-        movementSpeed = lr;
-      }
-    } else {
-      movementSpeed = (0.5 + wheelSpeedMod);
-    }
-
-    if (movementSpeed > 0 || movementSpeed < 0) {
-      telemetry.addData("SPEED", movementSpeed);
-    }
-
     frontRightPowerPre = frm + frt;
     frontLeftPowerPre = flm + flt;
     backRightPowerPre = brm + brt;
@@ -204,7 +182,7 @@ public class OpModeCougarWoods3 extends OpMode{
       backRight.setPower(backRightPowerOPost);
       backLeft.setPower(backLeftPowerOPost);
     } else {
-      frontRight.setPower(frontRightPowerPost);3
+      frontRight.setPower(frontRightPowerPost);
       frontLeft.setPower(frontLeftPowerPost);
       backRight.setPower(backRightPowerPost);
       backLeft.setPower(backLeftPowerPost);
