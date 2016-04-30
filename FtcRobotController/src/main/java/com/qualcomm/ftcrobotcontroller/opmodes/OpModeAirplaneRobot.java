@@ -67,10 +67,6 @@ public class OpModeAirplaneRobot extends OpMode{
         backLeft.setPower(left);
         frontLeft.setPower(left);
 
-        // update the position of the arm.
-
-        telemetry.addData("MOTOR POWER", launchSpeed);
-
         if (gamepad1.dpad_down)  { //tape measure
             launchSpeed = -1;
         } else if (gamepad1.dpad_up) {

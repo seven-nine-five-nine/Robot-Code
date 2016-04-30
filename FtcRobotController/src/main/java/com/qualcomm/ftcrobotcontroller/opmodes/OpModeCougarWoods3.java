@@ -34,7 +34,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private double frontLeftPowerOPost = 0;
   private double backRightPowerOPost = 0;
   private double backLeftPowerOPost = 0;
-  private double movementSpeed = 0;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -45,6 +44,8 @@ public class OpModeCougarWoods3 extends OpMode{
   private boolean isIncreasingSwing = false;
   private boolean isDecreasingSwing = false;
   //misc. golfing variables
+  private double movementSpeed = 0;
+  //used for display
 
   @Override
   public void init() {
@@ -86,6 +87,9 @@ public class OpModeCougarWoods3 extends OpMode{
     double min = 0.05;
     double cs = 0.05;
     // double floats for easy changes
+    boolean lt = false;
+    boolean rt = false;
+    // boolean for an "if" statement.
 
     if (lx >= min || lx <= -min || ly >= min || ly <= -min) {
       lr = (100 * (Math.abs(lx) + Math.abs(ly)));
@@ -137,10 +141,6 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
     
-    if (!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
-      overrideWheels = false;
-    }
-    
     if (gamepad1.dpad_left && !wheelOverrideSpeedChange) {
       wheelSpeedMod -= cs;
       wheelOverrideSpeedChange = true;
@@ -155,18 +155,24 @@ public class OpModeCougarWoods3 extends OpMode{
       wheelOverrideSpeedChange = false;
     }
 
-    if (gamepad1.left_trigger >= 0.1){
+    if (gamepad1.left_trigger >= min){
       frt += gamepad1.left_trigger;
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
       blt -= gamepad1.left_trigger;
+      lt = true;
+    } else {
+      lt = false;
     }
 
-    if (gamepad1.right_trigger >= 0.1) {
+    if (gamepad1.right_trigger >= min) {
       frt -= gamepad1.right_trigger;
       flt += gamepad1.right_trigger;
       brt -= gamepad1.right_trigger;
       blt += gamepad1.right_trigger;
+      rt = true;
+    } else {
+      rt = false;
     }
 
     if (!overrideWheels) {
@@ -199,6 +205,10 @@ public class OpModeCougarWoods3 extends OpMode{
       frontLeft.setPower(frontLeftPowerPost);
       backRight.setPower(backRightPowerPost);
       backLeft.setPower(backLeftPowerPost);
+    }
+
+    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !(lt || rt)) {
+      overrideWheels = false;
     }
 
     // f/b refer to front/back, l/r refer to left/right, m/t refer to direction/turning
