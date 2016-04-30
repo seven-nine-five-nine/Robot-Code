@@ -78,23 +78,25 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
+    double min = 0.05;
+    double cs = 0.05;
     // integers for movement
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
     double lr = 0;
 
-    if (lx >= 0.05 || lx <= -0.05 || ly >= 0.05 || ly <= -0.05) {
+    if (lx >= min || lx <= -min || ly >= min || ly <= -min) {
       lr = Math.sqrt((ly * ly) + (lx * lx));
     }
 
-    if ((gamepad1.left_stick_y >= 0.05) || (gamepad1.left_stick_y <= -0.05)) {
+    if ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
       frm += gamepad1.left_stick_y;
       flm += gamepad1.left_stick_y;
       brm += gamepad1.left_stick_y;
       blm += gamepad1.left_stick_y;
     }
 
-    if ((gamepad1.left_stick_x >= 0.05) || (gamepad1.left_stick_x <= -0.05)) {
+    if ((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) {
       frm += gamepad1.left_stick_x;
       flm -= gamepad1.left_stick_x;
       brm -= gamepad1.left_stick_x;
@@ -138,14 +140,14 @@ public class OpModeCougarWoods3 extends OpMode{
     }
     
     if (gamepad1.dpad_left && !wheelOverrideSpeedChange) {
-      wheelSpeedMod -= 0.05;
+      wheelSpeedMod -= cs;
       wheelOverrideSpeedChange = true;
     } else {
       wheelOverrideSpeedChange = false;
     }
-    
+
     if (gamepad1.dpad_right && !wheelOverrideSpeedChange) {
-      wheelSpeedMod += 0.05;
+      wheelSpeedMod += cs;
       wheelOverrideSpeedChange = true;
     } else {
       wheelOverrideSpeedChange = false;
@@ -198,14 +200,14 @@ public class OpModeCougarWoods3 extends OpMode{
 
     if (gamepad1.dpad_up && !isIncreasingSwing) {
       isIncreasingSwing = true;
-      swingPower += 0.01;
+      swingPower += cs;
     } else {
       isIncreasingSwing = false;
     }
 
     if (gamepad1.dpad_down && !isDecreasingSwing) {
       isDecreasingSwing = true;
-      swingPower -= 0.01;
+      swingPower -= cs;
     } else {
       isDecreasingSwing = false;
     }
