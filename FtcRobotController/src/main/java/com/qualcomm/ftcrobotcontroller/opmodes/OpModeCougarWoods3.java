@@ -78,15 +78,17 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
-    // integers for movement
+    // double floats for movement
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
     double lr = 0;
+    // double floats for display
     double min = 0.05;
     double cs = 0.05;
+    // double floats for easy changes
 
     if (lx >= min || lx <= -min || ly >= min || ly <= -min) {
-      lr = (Math.abs(lx) + Math.abs(ly));
+      lr = (100 * (Math.abs(lx) + Math.abs(ly)));
     }
 
     if ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
@@ -175,9 +177,9 @@ public class OpModeCougarWoods3 extends OpMode{
       movementSpeed = (0.5 + wheelSpeedMod);
     }
 
-    //if (movementSpeed > 0 || movementSpeed < 0) {
-    //  telemetry.addData("SPEED", movementSpeed);
-    //}
+    if (movementSpeed > 0 || movementSpeed < 0) {
+      telemetry.addData("SPEED", movementSpeed);
+    }
 
     frontRightPowerPre = frm + frt;
     frontLeftPowerPre = flm + flt;
@@ -240,6 +242,7 @@ public class OpModeCougarWoods3 extends OpMode{
     try{
       Thread.sleep(ms);
     } catch (InterruptedException e){
+
 
     }
 
