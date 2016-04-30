@@ -165,10 +165,10 @@ public class OpModeCougarWoods3 extends OpMode{
       blt += gamepad1.right_trigger;
     }
 
-    if (overrideWheels) {
-      movementSpeed = (0.5 + wheelSpeedMod);
-    } else {
+    if (!overrideWheels) {
       movementSpeed = lr;
+    } else {
+      movementSpeed = (0.5 + wheelSpeedMod);
     }
 
     //telemetry.addData("SPEED", movementSpeed);
