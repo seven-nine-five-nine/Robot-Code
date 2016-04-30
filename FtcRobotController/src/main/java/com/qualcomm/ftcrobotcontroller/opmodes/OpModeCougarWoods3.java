@@ -23,15 +23,16 @@ public class OpModeCougarWoods3 extends OpMode{
   private double frontLeftPowerB = 0;
   private double backRightPowerB = 0;
   private double backLeftPowerB = 0;
-
+  //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
   private DcMotor frontLeft;
   private DcMotor frontRight;
   private DcMotor golfClub;
-
+  //motor variables
   private boolean isIncreasingSwing = false;
   private boolean isDecreasingSwing = false;
+  //misc. golfing variables
 
   @Override
   public void init() {
@@ -65,6 +66,10 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
+    double fro = 0;
+    double flo = 0;
+    double bro = 0;
+    double blo = 0;
 
     if ((gamepad1.left_stick_y >= 0.1) || (gamepad1.left_stick_y <= -0.1)) {
       frm += gamepad1.left_stick_y;
@@ -81,24 +86,24 @@ public class OpModeCougarWoods3 extends OpMode{
     }
 
     if ((gamepad1.left_bumper) && (gamepad1.right_bumper)) {
-      frontRight.setPower(1);
-      frontLeft.setPower(1);
-      backRight.setPower(1);
-      backLeft.setPower(1);
+      fro = 1;
+      flo = 1;
+      bro = 1;
+      blo = 1;
     }
 
-    if (gamepad1.left_bumper) {
-      frontRight.setPower(1);
-      frontLeft.setPower(0);
-      backRight.setPower(0);
-      backLeft.setPower(1);
+    if (gamepad1.left_bumper && !gamepad1.right_bumper) {
+      fro = 1;
+      flo = 0;
+      bro = 0;
+      blo = 1;
     }
 
-    if (gamepad1.right_bumper) {
-      frontRight.setPower(0);
-      frontLeft.setPower(1);
-      backRight.setPower(1);
-      backLeft.setPower(0);
+    if (gamepad1.right_bumper && !gamepad1.left_bumper) {
+      fro = 0;
+      flo = 1;
+      bro = 1;
+      blo = 0;
     }
 
     if (gamepad1.left_trigger >= 0.1){
@@ -122,11 +127,19 @@ public class OpModeCougarWoods3 extends OpMode{
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
 
-    frontRight.setPower(frontRightPowerB);
-    frontLeft.setPower(frontLeftPowerB);
-    backRight.setPower(backRightPowerB);
-    backLeft.setPower(backLeftPowerB);
-    // f/b refer to front/back, l/r refer to left/right, m/t/f refer to direction/turning/final.
+    if(fro > 0 || flo > 0 || bro > 0 || blo > 0) {
+      frontRight.setPower(fro);
+      frontLeft.setPower(flo);
+      backRight.setPower(bro);
+      backLeft.setPower(blo);
+    } else {
+      frontRight.setPower(frontRightPowerB);
+      frontLeft.setPower(frontLeftPowerB);
+      backRight.setPower(backRightPowerB);
+      backLeft.setPower(backLeftPowerB);
+    }
+
+    // f/b refer to front/back, l/r refer to left/right, m/t/o refer to direction/turning/override
 
 
     if (gamepad1.dpad_up && !isIncreasingSwing) {
