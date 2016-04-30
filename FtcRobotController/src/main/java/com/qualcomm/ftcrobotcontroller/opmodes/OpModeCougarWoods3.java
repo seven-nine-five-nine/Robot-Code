@@ -71,14 +71,14 @@ public class OpModeCougarWoods3 extends OpMode{
     double bro = 0;
     double blo = 0;
 
-    if ((gamepad1.left_stick_y >= 0.1) || (gamepad1.left_stick_y <= -0.1)) {
+    if ((gamepad1.left_stick_y >= 0.05) || (gamepad1.left_stick_y <= -0.05)) {
       frm += gamepad1.left_stick_y;
       flm += gamepad1.left_stick_y;
       brm += gamepad1.left_stick_y;
       blm += gamepad1.left_stick_y;
     }
 
-    if ((gamepad1.left_stick_x >= 0.1) || (gamepad1.left_stick_x <= -0.1)) {
+    if ((gamepad1.left_stick_x >= 0.05) || (gamepad1.left_stick_x <= -0.05)) {
       frm += gamepad1.left_stick_x;
       flm -= gamepad1.left_stick_x;
       brm -= gamepad1.left_stick_x;
