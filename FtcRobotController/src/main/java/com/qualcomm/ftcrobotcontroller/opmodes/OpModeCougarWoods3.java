@@ -15,14 +15,14 @@ public class OpModeCougarWoods3 extends OpMode{
 
 
   private double swingPower = 0.5;
-  private double frontRightPowerA = 0;
-  private double frontLeftPowerA = 0;
-  private double backRightPowerA = 0;
-  private double backLeftPowerA = 0;
-  private double frontRightPowerB = 0;
-  private double frontLeftPowerB = 0;
-  private double backRightPowerB = 0;
-  private double backLeftPowerB = 0;
+  private double frontRightPowerPre = 0;
+  private double frontLeftPowerPre = 0;
+  private double backRightPowerPre = 0;
+  private double backLeftPowerPre = 0;
+  private double frontRightPowerPost = 0;
+  private double frontLeftPowerPost = 0;
+  private double backRightPowerPost = 0;
+  private double backLeftPowerPost = 0;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -120,10 +120,10 @@ public class OpModeCougarWoods3 extends OpMode{
       blt += gamepad1.right_trigger;
     }
 
-    frontRightPowerA = frm + frt;
-    frontLeftPowerA = flm + flt;
-    backRightPowerA = brm + brt;
-    backLeftPowerA = blm + blt;
+    frontRightPowerPre = frm + frt;
+    frontLeftPowerPre = flm + flt;
+    backRightPowerPre = brm + brt;
+    backLeftPowerPre = blm + blt;
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
 
@@ -133,10 +133,10 @@ public class OpModeCougarWoods3 extends OpMode{
       backRight.setPower(bro);
       backLeft.setPower(blo);
     } else {
-      frontRight.setPower(frontRightPowerB);
-      frontLeft.setPower(frontLeftPowerB);
-      backRight.setPower(backRightPowerB);
-      backLeft.setPower(backLeftPowerB);
+      frontRight.setPower(frontRightPowerPost);
+      frontLeft.setPower(frontLeftPowerPost);
+      backRight.setPower(backRightPowerPost);
+      backLeft.setPower(backLeftPowerPost);
     }
 
     // f/b refer to front/back, l/r refer to left/right, m/t/o refer to direction/turning/override
@@ -186,36 +186,36 @@ public class OpModeCougarWoods3 extends OpMode{
   }
 
   private void trimWheelPower() {
-    if (frontRightPowerA > 1) {
-      frontRightPowerB = 1;
-    } else if (frontRightPowerA < -1) {
-      frontRightPowerB = -1;
+    if (frontRightPowerPre > 1) {
+      frontRightPowerPost = 1;
+    } else if (frontRightPowerPre < -1) {
+      frontRightPowerPost = -1;
     } else {
-      frontRightPowerB = frontRightPowerA;
+      frontRightPowerPost = frontRightPowerPre;
     }
 
-    if (frontLeftPowerA > 1) {
-      frontLeftPowerB = 1;
-    } else if (frontLeftPowerA < -1) {
-      frontLeftPowerB = -1;
+    if (frontLeftPowerPre > 1) {
+      frontLeftPowerPost = 1;
+    } else if (frontLeftPowerPre < -1) {
+      frontLeftPowerPost = -1;
     } else {
-      frontLeftPowerB = frontLeftPowerA;
+      frontLeftPowerPost = frontLeftPowerPre;
     }
 
-    if (backRightPowerA > 1) {
-      backRightPowerB = 1;
-    } else if (backLeftPowerA < -1) {
-      backRightPowerB = -1;
+    if (backRightPowerPre > 1) {
+      backRightPowerPost = 1;
+    } else if (backLeftPowerPre < -1) {
+      backRightPowerPost = -1;
     } else {
-      backRightPowerB = backRightPowerA;
+      backRightPowerPost = backRightPowerPre;
     }
 
-    if (backLeftPowerA > 1) {
-      backLeftPowerB = 1;
-    } else if (backLeftPowerA < -1) {
-      backLeftPowerB = -1;
+    if (backLeftPowerPre > 1) {
+      backLeftPowerPost = 1;
+    } else if (backLeftPowerPre < -1) {
+      backLeftPowerPost = -1;
     } else {
-      backLeftPowerB = backLeftPowerA;
+      backLeftPowerPost = backLeftPowerPre;
     }
   }
 
