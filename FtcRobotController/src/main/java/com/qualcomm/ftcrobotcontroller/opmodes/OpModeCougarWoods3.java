@@ -210,7 +210,7 @@ public class OpModeCougarWoods3 extends OpMode{
     }
     trimSwingPower(); //make sure the power is an acceptable value
 
-    telemetry.addData("SWING POWER (percent)", (100 * swingPower) + "%");
+    telemetry.addData("SWING POWER", (100 * swingPower) + "%");
 
     if (gamepad1.a) swing();
 
