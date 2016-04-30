@@ -20,6 +20,8 @@ public class OpModeAirplaneRobot extends OpMode{
     private DcMotor tapeMeasure1;
     private DcMotor tapeMeasure2;
 
+    private double launchSpeed = 0;
+
     @Override
     public void init() {
         backLeft = hardwareMap.dcMotor.get("backLeft");
@@ -67,25 +69,19 @@ public class OpModeAirplaneRobot extends OpMode{
 
         // update the position of the arm.
 
-        telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+        telemetry.addData("MOTOR POWER", launchSpeed);
 
         if (gamepad1.dpad_down)  { //tape measure
-            tapeMeasure1.setPower(-1);
-            tapeMeasure2.setPower(-1);
+            launchSpeed = -1;
         } else if (gamepad1.dpad_up) {
-
             //If the motor runs backwards, just reverse the direction
             // or reverse numbers.
-
-            tapeMeasure1.setPower(1);
-            tapeMeasure2.setPower(1);
+            launchSpeed = 1;
         } else {
-            tapeMeasure1.setPower(0);
-            tapeMeasure2.setPower(0);
+            launchSpeed = 0;
         }
-
-
+        tapeMeasure1.setPower(launchSpeed);
+        tapeMeasure2.setPower(launchSpeed);
     }
 
 
