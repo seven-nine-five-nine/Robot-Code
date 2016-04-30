@@ -79,7 +79,6 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
-    double bpw = 0.5;
     // double floats for movement
     double lx = gamepad1.left_stick_x;
     double ly = gamepad1.left_stick_y;
@@ -87,9 +86,10 @@ public class OpModeCougarWoods3 extends OpMode{
     // double floats for display
     double min = 0.05;
     double cs = 0.05;
+    double bpw = 0.5;
     // double floats for easy changes
-    boolean lt = false;
-    boolean rt = false;
+    boolean lt;
+    boolean rt;
     // boolean for an "if" statement.
 
     if (lx >= min || lx <= -min || ly >= min || ly <= -min) {
@@ -162,6 +162,7 @@ public class OpModeCougarWoods3 extends OpMode{
       brt += gamepad1.left_trigger;
       blt -= gamepad1.left_trigger;
       lt = true;
+      overrideWheels = true;
     } else {
       lt = false;
     }
@@ -172,6 +173,7 @@ public class OpModeCougarWoods3 extends OpMode{
       brt -= gamepad1.right_trigger;
       blt += gamepad1.right_trigger;
       rt = true;
+      overrideWheels = true;
     } else {
       rt = false;
     }
