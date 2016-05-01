@@ -218,7 +218,7 @@ public class OpModeCougarWoods3 extends OpMode{
   }
 
   private void swing() {
-    golfClub.setPower(-1 * swingPower);
+    golfClub.setPower(-swingPower);
 
     sleep(2000);
 
