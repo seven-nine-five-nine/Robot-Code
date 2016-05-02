@@ -24,6 +24,9 @@ public class OpModeCougarWoods3 extends OpMode{
   private double backRightPowerPost = 0;
   private double backLeftPowerPost = 0;
   private boolean overrideWheels = false;
+  private boolean triggersOn = false;
+  private boolean toggleTurning = false;
+  private boolean bx = false;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -75,8 +78,6 @@ public class OpModeCougarWoods3 extends OpMode{
     double cs = 0.05;
     double min = 0.05;
     // double floats for easy changes
-    boolean t = false;
-    // boolean for an "if" statement.
     double sp = swingPower * 100;
     // double for display
 
@@ -94,7 +95,7 @@ public class OpModeCougarWoods3 extends OpMode{
       blm += gamepad1.left_stick_x;
     }
 
-    while ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
+    while ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y) && !(triggersOn)) {
       fro = 1;
       flo = 1;
       bro = 1;
@@ -102,7 +103,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
+    while (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y && !(triggersOn)) {
       fro = 1;
       flo = 0;
       bro = 0;
@@ -110,7 +111,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
+    while (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y && !(triggersOn)) {
       fro = 0;
       flo = 1;
       bro = 1;
@@ -118,7 +119,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+    while (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper) && !(triggersOn)) {
       fro = -1;
       flo = -1;
       bro = -1;
@@ -126,21 +127,31 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.left_trigger >= min) {
+    if (gamepad1.x && toggleTurning && !bx) {
+      toggleTurning = false;
+      bx = true;
+    }
+
+    if (gamepad1.x && !toggleTurning && !bx) {
+      toggleTurning = true;
+      bx = true;
+    }
+
+    while (gamepad1.left_trigger >= min && !toggleTurning) {
       frt += gamepad1.left_trigger;
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
       blt -= gamepad1.left_trigger;
-      t = true;
+      triggersOn = true;
       overrideWheels = true;
     }
 
-    while (gamepad1.right_trigger >= min) {
+    while (gamepad1.right_trigger >= min && !toggleTurning) {
       frt -= gamepad1.right_trigger;
       flt += gamepad1.right_trigger;
       brt -= gamepad1.right_trigger;
       blt += gamepad1.right_trigger;
-      t = true;
+      triggersOn = true;
       overrideWheels = true;
     }
 
@@ -163,7 +174,7 @@ public class OpModeCougarWoods3 extends OpMode{
       backLeft.setPower(backLeftPowerPost);
     }
 
-    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !(t)) {
+    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !triggersOn) {
       overrideWheels = false;
     }
 
@@ -185,6 +196,8 @@ public class OpModeCougarWoods3 extends OpMode{
     trimSwingPower(); //make sure the power is an acceptable value
 
     telemetry.addData("SWING POWER (percent)", (sp) + "%");
+
+    telemetry.addData("TURNING ON", (!toggleTurning));
 
     if (gamepad1.a) swing();
   }
