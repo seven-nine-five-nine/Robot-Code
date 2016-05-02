@@ -122,7 +122,7 @@ public class OpModeCougarWoods3 extends OpMode{
       fro = -1;
       flo = -1;
       bro = -1;
-      bro = -1;
+      blo = -1;
       overrideWheels = true;
     }
 
