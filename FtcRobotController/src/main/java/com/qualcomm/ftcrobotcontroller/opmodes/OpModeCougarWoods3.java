@@ -80,21 +80,21 @@ public class OpModeCougarWoods3 extends OpMode{
     double sp = swingPower * 100;
     // double for display
 
-    if ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
+    while ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
       frm += gamepad1.left_stick_y;
       flm += gamepad1.left_stick_y;
       brm += gamepad1.left_stick_y;
       blm += gamepad1.left_stick_y;
     }
 
-    if ((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) {
+    while ((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) {
       frm += gamepad1.left_stick_x;
       flm -= gamepad1.left_stick_x;
       brm -= gamepad1.left_stick_x;
       blm += gamepad1.left_stick_x;
     }
 
-    if ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
+    while ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
       fro = 1;
       flo = 1;
       bro = 1;
@@ -102,7 +102,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
+    while (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
       fro = 1;
       flo = 0;
       bro = 0;
@@ -110,7 +110,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
+    while (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
       fro = 0;
       flo = 1;
       bro = 1;
@@ -118,7 +118,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+    while (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
       fro = -1;
       flo = -1;
       bro = -1;
@@ -126,7 +126,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.left_trigger >= min){
+    while (gamepad1.left_trigger >= min){
       frt += gamepad1.left_trigger;
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
@@ -135,7 +135,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.right_trigger >= min) {
+    while (gamepad1.right_trigger >= min) {
       frt -= gamepad1.right_trigger;
       flt += gamepad1.right_trigger;
       brt -= gamepad1.right_trigger;
@@ -167,8 +167,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = false;
     }
 
-    // f/b refer to front/back, l/r refer to left/right, m/t refer to direction/turning
-
+    // f/b refer to front/back, l/r refer to left/right, m/t/o refer to direction/turning/override
 
     if (gamepad1.dpad_up && !isIncreasingSwing) {
       isIncreasingSwing = true;
