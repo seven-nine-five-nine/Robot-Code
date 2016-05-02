@@ -85,6 +85,8 @@ public class OpModeCougarWoods3 extends OpMode{
     boolean lt;
     boolean rt;
     // boolean for an "if" statement.
+    double sp = swingPower * 100;
+    // double for display
 
     if ((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) {
       frm += gamepad1.left_stick_y;
@@ -210,7 +212,7 @@ public class OpModeCougarWoods3 extends OpMode{
     }
     trimSwingPower(); //make sure the power is an acceptable value
 
-    telemetry.addData("SWING POWER", (100 * swingPower) + "%");
+    telemetry.addData("SWING POWER", (sp) + "%");
 
     if (gamepad1.a) swing();
 
@@ -232,7 +234,7 @@ public class OpModeCougarWoods3 extends OpMode{
   private void sleep(int ms) {
     try{
       Thread.sleep(ms);
-    } catch (InterruptedException e){
+    } catch (InterruptedException e){// Ask Ben about empty catch glitch
 
 
     }
