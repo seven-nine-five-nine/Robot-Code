@@ -24,16 +24,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private double backRightPowerPost = 0;
   private double backLeftPowerPost = 0;
   private boolean overrideWheels = false;
-  private double wheelSpeedMod = 0;
-  private boolean wheelOverrideSpeedChange = false;
-  private double frontRightPowerOPre = 0;
-  private double frontLeftPowerOPre = 0;
-  private double backRightPowerOPre = 0;
-  private double backLeftPowerOPre = 0;
-  private double frontRightPowerOPost = 0;
-  private double frontLeftPowerOPost = 0;
-  private double backRightPowerOPost = 0;
-  private double backLeftPowerOPost = 0;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -77,9 +67,12 @@ public class OpModeCougarWoods3 extends OpMode{
     double flt = 0;
     double brt = 0;
     double blt = 0;
+    double fro = 0;
+    double flo = 0;
+    double bro = 0;
+    double blo = 0;
     // double floats for movement
     double cs = 0.05;
-    double bpw = 0.5;
     double min = 0.05;
     // double floats for easy changes
     boolean t = false;
@@ -102,49 +95,35 @@ public class OpModeCougarWoods3 extends OpMode{
     }
 
     if ((gamepad1.left_bumper) && (gamepad1.right_bumper) && !(gamepad1.y)) {
-      frontRightPowerOPre = bpw;
-      frontLeftPowerOPre = bpw;
-      backRightPowerOPre = bpw;
-      backLeftPowerOPre = bpw;
+      fro = 1;
+      flo = 1;
+      bro = 1;
+      blo = 1;
       overrideWheels = true;
     }
 
     if (gamepad1.left_bumper && !gamepad1.right_bumper && !gamepad1.y) {
-      frontRightPowerOPre = bpw;
-      frontLeftPowerOPre = 0;
-      backRightPowerOPre = 0;
-      backLeftPowerOPre = bpw;
+      fro = 1;
+      flo = 0;
+      bro = 0;
+      blo = 1;
       overrideWheels = true;
     }
 
     if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
-      frontRightPowerOPre = 0;
-      frontLeftPowerOPre = bpw;
-      backRightPowerOPre = bpw;
-      backLeftPowerOPre = 0;
+      fro = 0;
+      flo = 1;
+      bro = 1;
+      blo = 0;
       overrideWheels = true;
     }
 
     if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
-      frontRightPowerOPre = -bpw;
-      frontLeftPowerOPre = -bpw;
-      backRightPowerOPre = -bpw;
-      backRightPowerOPre = -bpw;
+      fro = -1;
+      flo = -1;
+      bro = -1;
+      bro = -1;
       overrideWheels = true;
-    }
-    
-    if (gamepad1.dpad_left && !wheelOverrideSpeedChange) {
-      wheelSpeedMod -= cs;
-      wheelOverrideSpeedChange = true;
-    } else {
-      wheelOverrideSpeedChange = false;
-    }
-
-    if (gamepad1.dpad_right && !wheelOverrideSpeedChange) {
-      wheelSpeedMod += cs;
-      wheelOverrideSpeedChange = true;
-    } else {
-      wheelOverrideSpeedChange = false;
     }
 
     if (gamepad1.left_trigger >= min){
@@ -172,12 +151,11 @@ public class OpModeCougarWoods3 extends OpMode{
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
     
-    trimOverridePower();
     if (overrideWheels) {
-      frontRight.setPower(frontRightPowerOPost);
-      frontLeft.setPower(frontLeftPowerOPost);
-      backRight.setPower(backRightPowerOPost);
-      backLeft.setPower(backLeftPowerOPost);
+      frontRight.setPower(fro);
+      frontLeft.setPower(flo);
+      backRight.setPower(bro);
+      backLeft.setPower(blo);
     } else {
       frontRight.setPower(frontRightPowerPost);
       frontLeft.setPower(frontLeftPowerPost);
@@ -234,40 +212,6 @@ public class OpModeCougarWoods3 extends OpMode{
 
     }
 
-  }
-
-  private void trimOverridePower() {
-    if (frontRightPowerOPre + wheelSpeedMod > 1) {
-      frontRightPowerOPost = 1;
-    } else if (frontRightPowerOPre + wheelSpeedMod < 0.05) {
-      frontRightPowerOPost = 0.05;
-    } else {
-      frontRightPowerOPost = frontRightPowerOPre + wheelSpeedMod;
-    }
-
-    if (frontLeftPowerOPre + wheelSpeedMod > 1) {
-      frontLeftPowerOPost = 1;
-    } else if (frontLeftPowerOPre + wheelSpeedMod < 0.05) {
-      frontLeftPowerOPost = 0.05;
-    } else {
-      frontLeftPowerOPost = frontLeftPowerOPre + wheelSpeedMod;
-    }
-
-    if (backRightPowerOPre + wheelSpeedMod > 1) {
-      backRightPowerOPost = 1;
-    } else if (backRightPowerOPre + wheelSpeedMod < 0.05) {
-      backRightPowerOPost = 0.05;
-    } else {
-      backRightPowerOPost = backRightPowerOPre + wheelSpeedMod;
-    }
-
-    if (backLeftPowerOPre + wheelSpeedMod > 1) {
-      backLeftPowerOPost = 1;
-    } else if (backLeftPowerOPre + wheelSpeedMod < 0.05) {
-      backLeftPowerOPost = 0.05;
-    } else {
-      backLeftPowerOPost = backLeftPowerOPre + wheelSpeedMod;
-    }
   }
   
   private void trimWheelPower() {
