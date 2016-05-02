@@ -33,6 +33,7 @@ public class OpModeCougarWoods3 extends OpMode{
   //motor variables
   private boolean isIncreasingSwing = false;
   private boolean isDecreasingSwing = false;
+  private boolean swingWait = false;
   //misc. golfing variables
 
   @Override
@@ -126,7 +127,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.left_trigger >= min){
+    while (gamepad1.left_trigger >= min) {
       frt += gamepad1.left_trigger;
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
@@ -150,7 +151,7 @@ public class OpModeCougarWoods3 extends OpMode{
     backLeftPowerPre = blm + blt;
 
     trimWheelPower(); //keeps wheels below 1 and above -1 power
-    
+
     if (overrideWheels) {
       frontRight.setPower(fro);
       frontLeft.setPower(flo);
@@ -184,11 +185,9 @@ public class OpModeCougarWoods3 extends OpMode{
     }
     trimSwingPower(); //make sure the power is an acceptable value
 
-    telemetry.addData("SWING POWER", (sp) + "%");
+    telemetry.addData("SWING POWER (percent)", (sp) + "%");
 
     if (gamepad1.a) swing();
-
-
   }
 
   private void swing() {
@@ -206,8 +205,8 @@ public class OpModeCougarWoods3 extends OpMode{
   private void sleep(int ms) {
     try{
       Thread.sleep(ms);
-    } catch (InterruptedException e){// Ask Ben about empty catch glitch
-
+      // ask Ben about "empty catch"
+    } catch (InterruptedException e){
 
     }
 
