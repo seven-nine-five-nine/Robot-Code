@@ -19,10 +19,6 @@ public class OpModeCougarWoods3 extends OpMode{
   private double frontLeftPowerPre = 0;
   private double backRightPowerPre = 0;
   private double backLeftPowerPre = 0;
-  private double frontRightPowerPost = 0;
-  private double frontLeftPowerPost = 0;
-  private double backRightPowerPost = 0;
-  private double backLeftPowerPost = 0;
   private boolean overrideWheels = false;
   private boolean triggersOn = false;
   private boolean toggleTurning = false;
@@ -155,23 +151,21 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    frontRightPowerPre = frm + frt;
-    frontLeftPowerPre = flm + flt;
-    backRightPowerPre = brm + brt;
-    backLeftPowerPre = blm + blt;
-
-    trimWheelPower(); //keeps wheels below 1 and above -1 power
-
     if (overrideWheels) {
       frontRight.setPower(fro);
       frontLeft.setPower(flo);
       backRight.setPower(bro);
       backLeft.setPower(blo);
+    } else if (triggersOn) {
+      frontRight.setPower(frt);
+      frontLeft.setPower(flt);
+      backRight.setPower(brt);
+      backLeft.setPower(blt);
     } else {
-      frontRight.setPower(frontRightPowerPost);
-      frontLeft.setPower(frontLeftPowerPost);
-      backRight.setPower(backRightPowerPost);
-      backLeft.setPower(backLeftPowerPost);
+      frontRight.setPower(frm);
+      frontLeft.setPower(flm);
+      backRight.setPower(brm);
+      backLeft.setPower(blm);
     }
 
     if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !triggersOn) {
@@ -222,40 +216,6 @@ public class OpModeCougarWoods3 extends OpMode{
 
     }
 
-  }
-  
-  private void trimWheelPower() {
-    if (frontRightPowerPre > 1) {
-      frontRightPowerPost = 1;
-    } else if (frontRightPowerPre < -1) {
-      frontRightPowerPost = -1;
-    } else {
-      frontRightPowerPost = frontRightPowerPre;
-    }
-
-    if (frontLeftPowerPre > 1) {
-      frontLeftPowerPost = 1;
-    } else if (frontLeftPowerPre < -1) {
-      frontLeftPowerPost = -1;
-    } else {
-      frontLeftPowerPost = frontLeftPowerPre;
-    }
-
-    if (backRightPowerPre > 1) {
-      backRightPowerPost = 1;
-    } else if (backLeftPowerPre < -1) {
-      backRightPowerPost = -1;
-    } else {
-      backRightPowerPost = backRightPowerPre;
-    }
-
-    if (backLeftPowerPre > 1) {
-      backLeftPowerPost = 1;
-    } else if (backLeftPowerPre < -1) {
-      backLeftPowerPost = -1;
-    } else {
-      backLeftPowerPost = backLeftPowerPre;
-    }
   }
 
   public void trimSwingPower() {
