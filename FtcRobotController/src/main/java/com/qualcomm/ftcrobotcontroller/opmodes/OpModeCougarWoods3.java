@@ -82,8 +82,7 @@ public class OpModeCougarWoods3 extends OpMode{
     double bpw = 0.5;
     double min = 0.05;
     // double floats for easy changes
-    boolean lt;
-    boolean rt;
+    boolean t = false;
     // boolean for an "if" statement.
     double sp = swingPower * 100;
     // double for display
@@ -153,10 +152,8 @@ public class OpModeCougarWoods3 extends OpMode{
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
       blt -= gamepad1.left_trigger;
-      lt = true;
+      t = true;
       overrideWheels = true;
-    } else {
-      lt = false;
     }
 
     if (gamepad1.right_trigger >= min) {
@@ -164,10 +161,8 @@ public class OpModeCougarWoods3 extends OpMode{
       flt += gamepad1.right_trigger;
       brt -= gamepad1.right_trigger;
       blt += gamepad1.right_trigger;
-      rt = true;
+      t = true;
       overrideWheels = true;
-    } else {
-      rt = false;
     }
 
     frontRightPowerPre = frm + frt;
@@ -190,7 +185,7 @@ public class OpModeCougarWoods3 extends OpMode{
       backLeft.setPower(backLeftPowerPost);
     }
 
-    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !(lt || rt)) {
+    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !(t)) {
       overrideWheels = false;
     }
 
