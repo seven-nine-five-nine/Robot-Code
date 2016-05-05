@@ -15,14 +15,8 @@ public class OpModeCougarWoods3 extends OpMode{
 
 
   private double swingPower = 0.5;
-  private double frontRightPowerPre = 0;
-  private double frontLeftPowerPre = 0;
-  private double backRightPowerPre = 0;
-  private double backLeftPowerPre = 0;
   private boolean overrideWheels = false;
   private boolean triggersOn = false;
-  private boolean toggleTurning = false;
-  private boolean bx = false;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -123,17 +117,7 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    if (gamepad1.x && toggleTurning && !bx) {
-      toggleTurning = false;
-      bx = true;
-    }
-
-    if (gamepad1.x && !toggleTurning && !bx) {
-      toggleTurning = true;
-      bx = true;
-    }
-
-    while (gamepad1.left_trigger >= min && !toggleTurning) {
+    while (gamepad1.left_trigger >= min) {
       frt += gamepad1.left_trigger;
       flt -= gamepad1.left_trigger;
       brt += gamepad1.left_trigger;
@@ -142,13 +126,17 @@ public class OpModeCougarWoods3 extends OpMode{
       overrideWheels = true;
     }
 
-    while (gamepad1.right_trigger >= min && !toggleTurning) {
+    while (gamepad1.right_trigger >= min) {
       frt -= gamepad1.right_trigger;
       flt += gamepad1.right_trigger;
       brt -= gamepad1.right_trigger;
       blt += gamepad1.right_trigger;
       triggersOn = true;
       overrideWheels = true;
+    }
+
+    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !triggersOn) {
+      overrideWheels = false;
     }
 
     if (overrideWheels) {
@@ -166,10 +154,6 @@ public class OpModeCougarWoods3 extends OpMode{
       frontLeft.setPower(flm);
       backRight.setPower(brm);
       backLeft.setPower(blm);
-    }
-
-    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || !triggersOn) {
-      overrideWheels = false;
     }
 
     // f/b refer to front/back, l/r refer to left/right, m/t/o refer to direction/turning/override
@@ -191,9 +175,11 @@ public class OpModeCougarWoods3 extends OpMode{
 
     telemetry.addData("SWING POWER (percent)", (sp) + "%");
 
-    telemetry.addData("TURNING ON", (!toggleTurning));
-
     if (gamepad1.a) swing();
+
+    if (gamepad1.x) {
+      golfClub.setPower(-0.2);
+    }
   }
 
   private void swing() {
