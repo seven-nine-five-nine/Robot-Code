@@ -64,7 +64,7 @@ public class OpModeCougarWoods3 extends OpMode{
     double flo = 0;
     double bro = 0;
     double blo = 0;
-    boolean yox = false;
+    boolean yox;
     // double floats for movement
     double cs = 0.05;
     double min = 0.05;
@@ -79,7 +79,7 @@ public class OpModeCougarWoods3 extends OpMode{
       brm += gamepad1.left_stick_y;
       blm += gamepad1.left_stick_y;
     }
-    
+
     if (gamepad1.left_stick_y >= mino || gamepad1.left_stick_y <= -mino) {
      yox = true;
     } else {
