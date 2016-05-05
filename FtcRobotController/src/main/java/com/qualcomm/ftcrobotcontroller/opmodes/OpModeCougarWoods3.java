@@ -180,6 +180,9 @@ public class OpModeCougarWoods3 extends OpMode{
     if (gamepad1.x) {
       golfClub.setPower(-0.2);
     }
+    if (gamepad1.b) {
+      golfClub.setPower(0.2);
+    }
   }
 
   private void swing() {
