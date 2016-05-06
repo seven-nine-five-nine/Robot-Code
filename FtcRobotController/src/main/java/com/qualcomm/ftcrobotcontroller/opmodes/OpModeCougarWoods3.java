@@ -16,7 +16,6 @@ public class OpModeCougarWoods3 extends OpMode{
 
   private double swingPower = 0.5;
   private boolean overrideWheels = false;
-  private boolean triggersOn = false;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -66,7 +65,8 @@ public class OpModeCougarWoods3 extends OpMode{
     double blo = 0;
     boolean yox;
     boolean xoy;
-    // double floats for movement
+    boolean triggersOn;
+    // for movement
     double cs = 0.05;
     double min = 0.05;
     double minm = 0.95;
