@@ -74,7 +74,7 @@ public class OpModeCougarWoods3 extends OpMode{
     double sp = swingPower * 100;
     // double for display
 
-    if (gamepad1.left_stick_x >= minm || gamepad1.left_stick_x >= minm) {
+    if (gamepad1.left_stick_x >= minm || gamepad1.left_stick_x >= -minm) {
       xoy = true;
     } else {
       xoy = false;
