@@ -64,22 +64,22 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double blo = 0;
         boolean yox = false;
         boolean xoy = false;
-        boolean triggersOn;
+        boolean bumpersOn;
         boolean overrideWheels;
         // for movement
         double cs = 0.05;
         double min = 0.05;
-        double minm = 0.95;
+        double mino = 0.95;
         // double floats for easy changes
         double sp = swingPower * 100;
-        double lxjs = Math.abs(gamepad1.left_stick_x);
-        double lyjs = Math.abs(gamepad1.left_stick_y);
-        double ms = lxjs + lyjs;
+        double lxjsa = Math.abs(gamepad1.left_stick_x);
+        double lyjsa = Math.abs(gamepad1.left_stick_y);
+        double ms = lxjsa + lyjsa;
         // double for display
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
 
-        while (gamepad1.left_stick_x >= minm || gamepad1.left_stick_x >= -minm) {
+        while (gamepad1.left_stick_x >= mino || gamepad1.left_stick_x >= -mino) {
             xoy = true;
         }
 
@@ -90,7 +90,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
             blm += gamepad1.left_stick_y;
         }
 
-        while (gamepad1.left_stick_y >= minm || gamepad1.left_stick_y <= -minm) {
+        while (gamepad1.left_stick_y >= mino || gamepad1.left_stick_y <= -mino) {
             yox = true;
         }
 
@@ -111,23 +111,23 @@ public class OpModeCougarWoodsJoe extends OpMode{
             overrideWheels = false;
         }
 
-        if (gamepad1.left_trigger >= min) {
+        if (gamepad1.left_trigger >= min && gamepad1.b) {
             frt += gamepad1.left_trigger;
             flt -= gamepad1.left_trigger;
             brt += gamepad1.left_trigger;
             blt -= gamepad1.left_trigger;
-            triggersOn = true;
-        } else if (gamepad1.right_trigger >= min){
+            bumpersOn = true;
+        } else if (gamepad1.right_trigger >= min && gamepad1.b){
             frt -= gamepad1.right_trigger;
             flt += gamepad1.right_trigger;
             brt -= gamepad1.right_trigger;
             blt += gamepad1.right_trigger;
-            triggersOn = true;
+            bumpersOn = true;
         } else {
-            triggersOn = false;
+            bumpersOn = false;
         }
 
-        if (triggersOn) {
+        if (bumpersOn) {
             frontRight.setPower(frt);
             frontLeft.setPower(flt);
             backRight.setPower(brt);
@@ -165,12 +165,12 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         if (gamepad1.a) swing();
 
-        if (gamepad1.x) {
-            golfClub.setPower(-0.2);
+        if (gamepad1.left_trigger >= min && gamepad1.x) {
+            golfClub.setPower(gamepad1.left_trigger / 2);
         }
 
-        if (gamepad1.b) {
-            golfClub.setPower(0.2);
+        if (gamepad1.right_trigger >= min && gamepad1.x) {
+            golfClub.setPower(gamepad1.left_trigger / 2);
         }
     }
 
