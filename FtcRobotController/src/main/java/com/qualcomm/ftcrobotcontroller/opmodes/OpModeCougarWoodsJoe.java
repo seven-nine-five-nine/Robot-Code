@@ -15,6 +15,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
 
     private double swingPower = 0.5;
+    private boolean toggled = false;
     //movement variables
     private DcMotor backLeft;
     private DcMotor backRight;
@@ -66,31 +67,67 @@ public class OpModeCougarWoodsJoe extends OpMode{
         boolean xoy = false;
         boolean bumpersOn;
         boolean overrideWheels;
-        // for movement
+        boolean recentToggle;
         double cs = 0.05;
         double min = 0.05;
         double mino = 0.95;
-        // double floats for easy changes
         double sp = swingPower * 100;
         double lxjsa = Math.abs(gamepad1.left_stick_x);
         double lyjsa = Math.abs(gamepad1.left_stick_y);
         double ms = lxjsa + lyjsa;
-        // double for display
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
 
-        while (gamepad1.left_stick_x >= mino || gamepad1.left_stick_x >= -mino) {
+        if (!gamepad1.start) {
+            recentToggle = false;
+        } else {
+            recentToggle = true;
+        }
+
+        if (gamepad1.start && !recentToggle) {
+            toggleAbsolute();
+        }
+
+        while (gamepad1.left_stick_x >= mino && toggled) {
+            frm = 1;
+            flm = -1;
+            brm = -1;
+            blm = 1;
+        }
+
+        while (gamepad1.left_stick_x <= -mino && toggled) {
+            frm = -1;
+            flm = 1;
+            brm = 1;
+            blm = -1;
+        }
+
+        while (gamepad1.left_stick_y >= mino && toggled) {
+            frm = 1;
+            flm = 1;
+            brm = 1;
+            blm = 1;
+        }
+
+        while (gamepad1.left_stick_y <= -mino && toggled) {
+            frm = -1;
+            flm = -1;
+            brm = -1;
+            blm = -1;
+        }
+
+        while (gamepad1.left_stick_x >= mino || gamepad1.left_stick_x <= -mino && !toggled) {
             xoy = true;
         }
 
-        while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && !xoy) {
+        while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && !xoy && !toggled) {
             frm += gamepad1.left_stick_y;
             flm += gamepad1.left_stick_y;
             brm += gamepad1.left_stick_y;
             blm += gamepad1.left_stick_y;
         }
 
-        while (gamepad1.left_stick_y >= mino || gamepad1.left_stick_y <= -mino) {
+        while (gamepad1.left_stick_y >= mino || gamepad1.left_stick_y <= -mino && !toggled) {
             yox = true;
         }
 
@@ -194,6 +231,10 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         }
 
+    }
+
+    private void toggleAbsolute() {
+        toggled = !toggled;
     }
 
     public void trimSwingPower() {
