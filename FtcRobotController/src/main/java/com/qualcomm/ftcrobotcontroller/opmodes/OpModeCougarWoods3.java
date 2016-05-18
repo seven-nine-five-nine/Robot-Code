@@ -210,6 +210,8 @@ public class OpModeCougarWoods3 extends OpMode{
 
     telemetry.addData("POSITION", p);
 
+    sleep(500);
+
     if (gamepad1.dpad_up) {
       p += 1;
     } else {
@@ -302,6 +304,10 @@ public class OpModeCougarWoods3 extends OpMode{
       backRight.setPower(1);
       backLeft.setPower(-1);
       sleep(1000);
+      frontRight.setPower(0);
+      frontLeft.setPower(0);
+      backRight.setPower(0);
+      backLeft.setPower(0);
     }
 
     telemetry.clearData();
