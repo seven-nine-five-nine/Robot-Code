@@ -142,7 +142,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
             blm += gamepad1.left_stick_x;
         }
 
-        if (gamepad1.y) {
+        if (gamepad1.y && !toggled) {
             fro = 1;
             flo = 1;
             bro = 1;
@@ -204,13 +204,13 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         telemetry.addData("SWING POWER (percent)", (sp) + "%");
 
-        if (gamepad1.a) swing();
+        if (gamepad1.x) swing();
 
-        if (gamepad1.left_trigger >= min && gamepad1.x) {
+        if (gamepad1.left_trigger >= min && gamepad1.a) {
             golfClub.setPower(gamepad1.left_trigger / 2);
         }
 
-        if (gamepad1.right_trigger >= min && gamepad1.x) {
+        if (gamepad1.right_trigger >= min && gamepad1.a) {
             golfClub.setPower(gamepad1.right_trigger / 2);
         }
     }

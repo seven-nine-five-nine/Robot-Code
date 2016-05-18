@@ -185,6 +185,10 @@ public class OpModeCougarWoods3 extends OpMode{
     if (gamepad1.b) {
       golfClub.setPower(0.2);
     }
+
+    if (gamepad1.back) {
+      konamiCode();
+    }
   }
 
   private void swing() {
@@ -197,6 +201,110 @@ public class OpModeCougarWoods3 extends OpMode{
     sleep(3000);
 
     golfClub.setPower(0);
+  }
+
+  public void konamiCode() {
+    int p = 0;
+
+    telemetry.clearData();
+
+    telemetry.addData("POSITION", p);
+
+    if (gamepad1.dpad_up) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_up && p == 1) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_down && p == 2) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_down && p == 3) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_left && p == 4) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_right && p == 5) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_left && p == 6) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.dpad_right && p == 7) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.b && p == 8) {
+      p += 1;
+    } else {
+      telemetry.clearData();
+      return;
+    }
+
+    sleep(500);
+
+    if (gamepad1.a && p == 9) {
+      frontRight.setPower(1);
+      frontLeft.setPower(-1);
+      backRight.setPower(-1);
+      backLeft.setPower(1);
+      sleep(1000);
+      frontRight.setPower(-1);
+      frontLeft.setPower(1);
+      backRight.setPower(1);
+      backLeft.setPower(-1);
+      sleep(1000);
+    }
+
+    telemetry.clearData();
   }
 
   private void sleep(int ms) {
