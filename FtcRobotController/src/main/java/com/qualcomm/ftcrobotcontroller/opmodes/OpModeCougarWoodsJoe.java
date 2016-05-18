@@ -72,9 +72,9 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double min = 0.05;
         double mino = 0.95;
         double sp = swingPower * 100;
-        double lxjsa = Math.abs(gamepad1.left_stick_x);
-        double lyjsa = Math.abs(gamepad1.left_stick_y);
-        double ms = lxjsa + lyjsa;
+        double ljsxa = Math.abs(gamepad1.left_stick_x);
+        double ljsya = Math.abs(gamepad1.left_stick_y);
+        double ms = ljsxa + ljsya;
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
 
@@ -207,11 +207,11 @@ public class OpModeCougarWoodsJoe extends OpMode{
         if (gamepad1.x) swing();
 
         if (gamepad1.left_trigger >= min && gamepad1.a) {
-            golfClub.setPower(gamepad1.left_trigger / 2);
+            golfClub.setPower(gamepad1.left_trigger / 3);
         }
 
         if (gamepad1.right_trigger >= min && gamepad1.a) {
-            golfClub.setPower(gamepad1.right_trigger / 2);
+            golfClub.setPower(gamepad1.right_trigger / 3);
         }
     }
 
