@@ -1,9 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.ftccommon.CommandList;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by Mary on 1/8/16, edited on 5/2/16.
@@ -14,10 +16,10 @@ public class OpModeCougarWoodsJoe extends OpMode{
     //Then it'll turn purple like the rest.
 
 
+    private int toggleMode = 0;
+    //integer variables
     private double swingPower = 0.5;
-    private boolean toggled = false;
-    private boolean recentToggle = false;
-    //movement variables
+    //double variables
     private DcMotor backLeft;
     private DcMotor backRight;
     private DcMotor frontLeft;
@@ -26,7 +28,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
     //motor variables
     private boolean isIncreasingSwing = false;
     private boolean isDecreasingSwing = false;
-    //misc. golfing variables
+    private boolean recentToggle = false;
+    //boolean variables
 
     @Override
     public void init() {
@@ -64,10 +67,6 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double flo = 0;
         double bro = 0;
         double blo = 0;
-        boolean yox = false;
-        boolean xoy = false;
-        boolean turningOn;
-        boolean overrideWheels;
         double cs = 0.05;
         double min = 0.05;
         double mino = 0.95;
@@ -75,6 +74,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double ljsxa = Math.abs(gamepad1.left_stick_x);
         double ljsya = Math.abs(gamepad1.left_stick_y);
         double ms = ljsxa + ljsya;
+        boolean turningOn;
+        boolean overrideWheels;
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
 
@@ -90,59 +91,51 @@ public class OpModeCougarWoodsJoe extends OpMode{
             recentToggle = true;
         }
 
-        telemetry.addData("ABSOLUTE MOVEMENT", toggled);
+        telemetry.addData("MOVEMENT MODE", toggleMode);
 
-        while (gamepad1.left_stick_x >= mino && toggled) {
+        while (gamepad1.left_stick_x >= mino && toggleMode == 1) {
             frm = 1;
             flm = -1;
             brm = -1;
             blm = 1;
         }
 
-        while (gamepad1.left_stick_x <= -mino && toggled) {
+        while (gamepad1.left_stick_x <= -mino && toggleMode == 1) {
             frm = -1;
             flm = 1;
             brm = 1;
             blm = -1;
         }
 
-        while (gamepad1.left_stick_y >= mino && toggled) {
+        while (gamepad1.left_stick_y >= mino && toggleMode == 1) {
             frm = 1;
             flm = 1;
             brm = 1;
             blm = 1;
         }
 
-        while (gamepad1.left_stick_y <= -mino && toggled) {
+        while (gamepad1.left_stick_y <= -mino && toggleMode == 1) {
             frm = -1;
             flm = -1;
             brm = -1;
             blm = -1;
         }
 
-        while ((gamepad1.left_stick_x >= mino || gamepad1.left_stick_x <= -mino) && !toggled) {
-            xoy = true;
-        }
-
-        while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && !xoy && !toggled) {
+        while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && toggleMode == 0) {
             frm += gamepad1.left_stick_y;
             flm += gamepad1.left_stick_y;
             brm += gamepad1.left_stick_y;
             blm += gamepad1.left_stick_y;
         }
 
-        while ((gamepad1.left_stick_y >= mino || gamepad1.left_stick_y <= -mino) && !toggled) {
-            yox = true;
-        }
-
-        while (((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) && !yox) {
+        while (((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) && toggleMode == 0) {
             frm += gamepad1.left_stick_x;
             flm -= gamepad1.left_stick_x;
             brm -= gamepad1.left_stick_x;
             blm += gamepad1.left_stick_x;
         }
 
-        if (gamepad1.y && !toggled) {
+        if (gamepad1.y && toggleMode == 0) {
             fro = 1;
             flo = 1;
             bro = 1;
@@ -238,7 +231,10 @@ public class OpModeCougarWoodsJoe extends OpMode{
     }
 
     private void toggleAbsolute() {
-        toggled = !toggled;
+        toggleMode = toggleMode + 1;
+        if (toggleMode == 2) {
+            toggleMode = 0;
+        }
     }
 
     public void trimSwingPower() {
