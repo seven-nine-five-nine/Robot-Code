@@ -17,6 +17,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
 
     private int toggleMode = 0;
+    private int modeAmount = 2;
+    private int modeInput = modeAmount - 1;
     //integer variables
     private double swingPower = 0.5;
     //double variables
@@ -29,6 +31,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private boolean isIncreasingSwing = false;
     private boolean isDecreasingSwing = false;
     private boolean recentToggle = false;
+    private boolean recentReset = false;
     //boolean variables
 
     @Override
@@ -206,6 +209,25 @@ public class OpModeCougarWoodsJoe extends OpMode{
         if (gamepad1.right_trigger >= min && gamepad1.a) {
             golfClub.setPower(gamepad1.right_trigger / 3);
         }
+
+        if (gamepad1.a && gamepad1.back && !recentReset) {
+            reset();
+        } else {
+            recentReset = false;
+        }
+    }
+
+    private void reset() {
+        frontRight.setPower(0);
+        frontLeft.setPower(0);
+        backRight.setPower(0);
+        backLeft.setPower(0);
+        golfClub.setPower(0);
+        swingPower = 0.5;
+        toggleMode = 0;
+        telemetry.clearData();
+        init();
+        recentReset = true;
     }
 
     private void swing() {
@@ -232,8 +254,10 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
     private void toggleAbsolute() {
         toggleMode = toggleMode + 1;
-        if (toggleMode == 2) {
+        if (toggleMode >= modeInput) {
             toggleMode = 0;
+        } else if (toggleMode < 0) {
+            toggleMode = modeInput;
         }
     }
 
