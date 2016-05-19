@@ -13,9 +13,10 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class OpModeCougarWoodsJoe extends OpMode{
 
 
-    private int toggleMode = 0;
-    private int modeAmount = 2;
+    private byte modeAmount = 2;
+    //byte variables
     private int modeInput = modeAmount - 1;
+    private int toggleMode = 0;
     //integer variables
     private double swingPower = 0.5;
     private double range = 0.05;
@@ -35,6 +36,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
     //boolean variables
     private String modeName = "default";
     //string variables
+    private char unitPercent = '\u0025';
+    //character variables
 
     @Override
     public void init() {
@@ -75,9 +78,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double ljsya = Math.abs(gamepad1.left_stick_y);
         double ms = ljsya + ljsxa;
         double min = range;
-        double mino = 1 - range;
         //doubles
-        boolean turningOn;
+        boolean turningOn = false;
         boolean overrideWheels;
         //booleans
 
@@ -86,7 +88,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
             setRange();
         }
 
-        telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
+        telemetry.addData("MOVEMENT SPEED (percent)", (ms) + unitPercent);
 
         if (!gamepad1.start) {
             recentToggle = false;
@@ -165,8 +167,6 @@ public class OpModeCougarWoodsJoe extends OpMode{
             brt -= gamepad1.right_trigger;
             blt += gamepad1.right_trigger;
             turningOn = true;
-        } else {
-            turningOn = false;
         }
 
         if (gamepad1.left_bumper && toggleMode == 1) {
@@ -181,8 +181,6 @@ public class OpModeCougarWoodsJoe extends OpMode{
             brt -= 0.5;
             blt += 0.5;
             turningOn = true;
-        } else {
-            turningOn = false;
         }
 
         if (turningOn) {
@@ -202,8 +200,6 @@ public class OpModeCougarWoodsJoe extends OpMode{
             backLeft.setPower(blm);
         }
 
-        // f/b refer to front/back, l/r refer to left/right, m/t/o refer to direction/turning/override
-
         if (gamepad1.dpad_up && !isIncreasingSwing) {
             isIncreasingSwing = true;
             swingPower += cs;
@@ -217,9 +213,9 @@ public class OpModeCougarWoodsJoe extends OpMode{
         } else {
             isDecreasingSwing = false;
         }
-        trimSwingPower(); //make sure the power is an acceptable value
+        trimSwingPower();
 
-        telemetry.addData("SWING POWER (percent)", (sp) + "%");
+        telemetry.addData("SWING POWER (percent)", (sp) + unitPercent);
 
         if (gamepad1.x) swing();
 
@@ -242,7 +238,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         if (toggleMode == 0) {
             modeName = "default";
         } else if (toggleMode == 1) {
-            modeName = "dpad style joystick";
+            modeName = "\"dpad style\" joystick";
         } else {
             toggleMode = 0;
             modeName = "default";
@@ -266,7 +262,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         telemetry.clearData();
 
-        telemetry.addData("SENSITIVITY", 1 - range);
+        telemetry.addData("SENSITIVITY (percent)", (100 * (1 - range)) + unitPercent);
 
         if (gamepad1.a && !recentChange) {
             range += 0.05;
