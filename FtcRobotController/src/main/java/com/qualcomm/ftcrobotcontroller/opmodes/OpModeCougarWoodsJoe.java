@@ -33,6 +33,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private boolean recentChange = false;
     private boolean returnTo = true;
     //boolean variables
+    private String modeName = "default";
+    //string variables
 
     @Override
     public void init() {
@@ -80,8 +82,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
         //booleans
 
         if (gamepad1.back && gamepad1.b) {
-            setRange();
             returnTo = false;
+            setRange();
         }
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
@@ -92,40 +94,39 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         if (gamepad1.start && !recentToggle) {
             toggleAbsolute();
+            setMovementName();
         }
 
         if (gamepad1.start) {
             recentToggle = true;
         }
 
-        telemetry.addData("MOVEMENT MODE", toggleMode);
+        telemetry.addData("MOVEMENT MODE", modeName);
 
-        while (gamepad1.left_stick_x >= mino && toggleMode == 1) {
-            frm = 1;
-            flm = -1;
-            brm = -1;
-            blm = 1;
-        }
-
-        while (gamepad1.left_stick_x <= -mino && toggleMode == 1) {
-            frm = -1;
-            flm = 1;
-            brm = 1;
-            blm = -1;
-        }
-
-        while (gamepad1.left_stick_y >= mino && toggleMode == 1) {
-            frm = 1;
-            flm = 1;
-            brm = 1;
-            blm = 1;
-        }
-
-        while (gamepad1.left_stick_y <= -mino && toggleMode == 1) {
-            frm = -1;
-            flm = -1;
-            brm = -1;
-            blm = -1;
+        if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+            if (gamepad1.left_stick_x > min) {
+                frm += 1;
+                flm -= 1;
+                brm -= 1;
+                blm += 1;
+            } else if (gamepad1.left_stick_x < -min) {
+                frm -= 1;
+                flm += 1;
+                brm += 1;
+                blm -= 1;
+            }
+        } else if (Math.abs(gamepad1.left_stick_y) >= Math.abs(gamepad1.left_stick_x)) {
+            if (gamepad1.left_stick_y > min) {
+                frm += 1;
+                flm += 1;
+                brm += 1;
+                blm += 1;
+            } else if (gamepad1.left_stick_y < -min) {
+                frm -= 1;
+                flm -= 1;
+                brm -= 1;
+                blm -= 1;
+            }
         }
 
         while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && toggleMode == 0) {
@@ -152,17 +153,33 @@ public class OpModeCougarWoodsJoe extends OpMode{
             overrideWheels = false;
         }
 
-        if (gamepad1.left_trigger >= min && gamepad1.b) {
+        if (gamepad1.left_trigger >= min && gamepad1.b && toggleMode == 0) {
             frt += gamepad1.left_trigger;
             flt -= gamepad1.left_trigger;
             brt += gamepad1.left_trigger;
             blt -= gamepad1.left_trigger;
             turningOn = true;
-        } else if (gamepad1.right_trigger >= min && gamepad1.b){
+        } else if (gamepad1.right_trigger >= min && gamepad1.b && toggleMode == 0) {
             frt -= gamepad1.right_trigger;
             flt += gamepad1.right_trigger;
             brt -= gamepad1.right_trigger;
             blt += gamepad1.right_trigger;
+            turningOn = true;
+        } else {
+            turningOn = false;
+        }
+
+        if (gamepad1.left_bumper && toggleMode == 1) {
+            frt += 0.5;
+            flt -= 0.5;
+            brt += 0.5;
+            blt -= 0.5;
+            turningOn = true;
+        } else if (gamepad1.right_bumper && toggleMode == 1) {
+            frt -= 0.5;
+            flt += 0.5;
+            brt -= 0.5;
+            blt += 0.5;
             turningOn = true;
         } else {
             turningOn = false;
@@ -221,6 +238,17 @@ public class OpModeCougarWoodsJoe extends OpMode{
         }
     }
 
+    private void setMovementName() {
+        if (toggleMode == 0) {
+            modeName = "default";
+        } else if (toggleMode == 1) {
+            modeName = "dpad style joystick";
+        } else {
+            toggleMode = 0;
+            modeName = "default";
+        }
+    }
+
     private void reset() {
         frontRight.setPower(0);
         frontLeft.setPower(0);
@@ -241,7 +269,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         telemetry.addData("SENSITIVITY", 1 - range);
 
         if (gamepad1.a && !recentChange) {
-            range = range + 0.05;
+            range += 0.05;
             recentChange = true;
         } else if (gamepad1.b && !recentChange) {
             range = range -0.05;
@@ -261,10 +289,9 @@ public class OpModeCougarWoodsJoe extends OpMode{
             telemetry.clearData();
             recentChange = false;
             trimRange();
-            loop();
         }
     }
-    
+
     private void trimRange() {
         if (range > 1) {
             range = 1;
