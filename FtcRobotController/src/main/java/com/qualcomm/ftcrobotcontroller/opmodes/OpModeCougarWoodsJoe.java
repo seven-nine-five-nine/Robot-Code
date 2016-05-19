@@ -18,6 +18,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private int modeInput = modeAmount - 1;
     //integer variables
     private double swingPower = 0.5;
+    private double range = 0.05;
     //double variables
     private DcMotor backLeft;
     private DcMotor backRight;
@@ -29,6 +30,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private boolean isDecreasingSwing = false;
     private boolean recentToggle = false;
     private boolean recentReset = false;
+    private boolean recentChange = false;
+    private boolean returnTo = true;
     //boolean variables
 
     @Override
@@ -65,14 +68,21 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double bro = 0;
         double blo = 0;
         double cs = 0.05;
-        double min = 0.05;
-        double mino = 0.95;
         double sp = swingPower * 100;
         double ljsxa = Math.abs(gamepad1.left_stick_x);
         double ljsya = Math.abs(gamepad1.left_stick_y);
-        double ms = ljsxa + ljsya;
+        double ms = ljsya + ljsxa;
+        double min = range;
+        double mino = 1 - range;
+        //doubles
         boolean turningOn;
         boolean overrideWheels;
+        //booleans
+
+        if (gamepad1.back && gamepad1.b) {
+            setRange();
+            returnTo = false;
+        }
 
         telemetry.addData("MOVEMENT SPEED (percent)", (ms) + "%");
 
@@ -222,6 +232,47 @@ public class OpModeCougarWoodsJoe extends OpMode{
         telemetry.clearData();
         init();
         recentReset = true;
+    }
+
+    private void setRange() {
+
+        telemetry.clearData();
+
+        telemetry.addData("SENSITIVITY", 1 - range);
+
+        if (gamepad1.a && !recentChange) {
+            range = range + 0.05;
+            recentChange = true;
+        } else if (gamepad1.b && !recentChange) {
+            range = range -0.05;
+            recentChange = true;
+        } else {
+            recentChange = false;
+        }
+
+        if (!gamepad1.back && returnTo) {
+            setRange();
+        } else if (!gamepad1.back && !returnTo) {
+            returnTo = true;
+            setRange();
+        } else if (!returnTo) {
+            setRange();
+        } else {
+            telemetry.clearData();
+            recentChange = false;
+            trimRange();
+            loop();
+        }
+    }
+    
+    private void trimRange() {
+        if (range > 1) {
+            range = 1;
+        }
+
+        if (range < 0) {
+            range = 0;
+        }
     }
 
     private void swing() {
