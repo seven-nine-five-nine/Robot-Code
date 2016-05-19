@@ -12,9 +12,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  */
 public class OpModeCougarWoodsJoe extends OpMode{
 
-    //To create a proper variable(?) just program it to actually do something.
-    //Then it'll turn purple like the rest.
-
 
     private int toggleMode = 0;
     private int modeAmount = 2;
@@ -41,7 +38,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         golfClub = hardwareMap.dcMotor.get("golfClub");
-
+        //Shortens variables
         golfClub.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         golfClub.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -50,10 +47,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         frontRight.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
-
-
-        //some of the motors may need to be reversed, if they're spinning the wrong way call:
-        //WHATEVER_MOTOR.setDirection(DcMotor.Direction.REVERSE);
+        //Activates and configures motors.
     }
 
     @Override
@@ -203,7 +197,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         if (gamepad1.x) swing();
 
         if (gamepad1.left_trigger >= min && gamepad1.a) {
-            golfClub.setPower(gamepad1.left_trigger / 3);
+            golfClub.setPower(-gamepad1.left_trigger / 3);
         }
 
         if (gamepad1.right_trigger >= min && gamepad1.a) {
@@ -256,7 +250,9 @@ public class OpModeCougarWoodsJoe extends OpMode{
         toggleMode = toggleMode + 1;
         if (toggleMode >= modeInput) {
             toggleMode = 0;
-        } else if (toggleMode < 0) {
+        }
+
+        if (toggleMode < 0) {
             toggleMode = modeInput;
         }
     }
