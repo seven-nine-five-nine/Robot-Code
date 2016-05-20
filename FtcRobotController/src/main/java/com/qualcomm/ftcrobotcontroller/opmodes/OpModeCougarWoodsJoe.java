@@ -35,6 +35,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private boolean recentReset = false;
     private boolean recentChange = false;
     private boolean returnTo = true;
+    private boolean stateMovement = true;
     //boolean variables
     private String modeName = "default";
     //string variables
@@ -92,7 +93,10 @@ public class OpModeCougarWoodsJoe extends OpMode{
             setRange();
         }
 
-        telemetry.addData("MOVEMENT SPEED (percent)", (ms) + unitPercent);
+        if (stateMovement) {
+            telemetry.addData("MOVEMENT SPEED (percent)", (ms) + unitPercent);
+            stateMovement = false;
+        }
 
         if (!gamepad1.start) {
             recentToggle = false;
@@ -101,6 +105,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         if (gamepad1.start && !recentToggle) {
             toggleAbsolute();
             setMovementName();
+            stateMovement = true;
         }
 
         if (gamepad1.start) {
@@ -264,6 +269,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         swingPower = 0.5;
         toggleMode = 0;
         telemetry.clearData();
+        stateMovement = true;
         init();
         recentReset = true;
     }
