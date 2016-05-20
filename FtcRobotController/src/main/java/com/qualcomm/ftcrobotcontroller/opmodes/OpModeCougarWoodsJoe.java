@@ -18,6 +18,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private int modeInput = modeAmount - 1;
     private int toggleMode = 0;
     //integer variables
+    private long working = telemetry.getTimestamp();
+    //long variables
     private double swingPower = 0.5;
     private double range = 0.05;
     //double variables
@@ -82,6 +84,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
         boolean turningOn = false;
         boolean overrideWheels;
         //booleans
+
+        telemetry.addData("LAST LOOP", working);
 
         if (gamepad1.back && gamepad1.b) {
             returnTo = false;
@@ -232,6 +236,12 @@ public class OpModeCougarWoodsJoe extends OpMode{
         } else {
             recentReset = false;
         }
+
+        timestamp();
+    }
+
+    private void timestamp() {
+        working = telemetry.getTimestamp();
     }
 
     private void setMovementName() {
