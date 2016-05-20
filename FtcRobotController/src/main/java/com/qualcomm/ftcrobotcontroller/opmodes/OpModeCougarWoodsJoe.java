@@ -79,7 +79,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         double sp = swingPower * 100;
         double ljsxa = Math.abs(gamepad1.left_stick_x);
         double ljsya = Math.abs(gamepad1.left_stick_y);
-        double ms = ljsya + ljsxa;
+        double ms = (100 * (ljsya + ljsxa));
         double min = range;
         //doubles
         boolean turningOn = false;
@@ -292,7 +292,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         if (!gamepad1.back && returnTo) {
             setRange();
-        } else if (!gamepad1.back && !returnTo) {
+        } else if (!gamepad1.back) {
             returnTo = true;
             setRange();
         } else if (!returnTo) {
@@ -387,4 +387,3 @@ public class OpModeCougarWoodsJoe extends OpMode{
     }
 
 }
-
