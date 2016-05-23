@@ -105,23 +105,22 @@ public class OpModeCougarWoods3 extends OpMode{
       bro = 0;
       blo = 1;
       overrideWheels = true;
-    }
-
-    if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
+    } else if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
       fro = 0;
       flo = 1;
       bro = 1;
       blo = 0;
       overrideWheels = true;
-    }
-
-    if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+    } else if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
       fro = -1;
       flo = -1;
       bro = -1;
       blo = -1;
       overrideWheels = true;
+    } else if (!(gamepad1.y) && !(gamepad1.right_bumper)) {
+      overrideWheels = false;
     }
+
 
     if (gamepad1.left_trigger >= min) {
       frt += gamepad1.left_trigger;
@@ -137,10 +136,6 @@ public class OpModeCougarWoods3 extends OpMode{
       triggersOn = true;
     } else {
       triggersOn = false;
-    }
-
-    if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper))) {
-      overrideWheels = false;
     }
 
     if (triggersOn) {
