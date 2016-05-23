@@ -272,10 +272,12 @@ public class OpModeCougarWoods3 extends OpMode{
       timerUse = 0;
       timerCurrent = 0;
       position = 0;
+      telemetry.clearData();
       return;
     } else if (timer >= 0) {
       konamiCode();
     } else {
+      telemetry.clearData();
       return;
     }
   }
