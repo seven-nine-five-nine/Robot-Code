@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Mary on 1/8/16, edited on 5/2/16.
+ * Created by Mary on 1/8/16, edited on 5/23/16.
  */
 public class OpModeCougarWoods3 extends OpMode{
 
