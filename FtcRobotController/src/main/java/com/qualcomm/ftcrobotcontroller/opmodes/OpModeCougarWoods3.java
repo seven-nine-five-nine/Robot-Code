@@ -117,10 +117,9 @@ public class OpModeCougarWoods3 extends OpMode{
       bro = -1;
       blo = -1;
       overrideWheels = true;
-    } else if (!(gamepad1.y) && !(gamepad1.right_bumper)) {
+    } else {
       overrideWheels = false;
     }
-
 
     if (gamepad1.left_trigger >= min) {
       frt += gamepad1.left_trigger;
@@ -208,7 +207,6 @@ public class OpModeCougarWoods3 extends OpMode{
     timerCurrent = telemetry.getTimestamp();
 
     long time = timerCurrent - timerUse;
-
     long timer = 1000 - time;
 
     telemetry.addData("POSITION", position);
@@ -260,6 +258,20 @@ public class OpModeCougarWoods3 extends OpMode{
       backRight.setPower(-1);
       backLeft.setPower(1);
       sleep(1000);
+      frontRight.setPower(0);
+      frontLeft.setPower(0);
+      backRight.setPower(0);
+      backLeft.setPower(0);
+      golfClub.setPower(0.2);
+      sleep(500);
+      golfClub.setPower(-0.2);
+      sleep(250);
+      frontRight.setPower(0.1);
+      frontLeft.setPower(0.1);
+      backRight.setPower(0.1);
+      backLeft.setPower(0.1);
+      sleep(250);
+      golfClub.setPower(0);
       frontRight.setPower(0);
       frontLeft.setPower(0);
       backRight.setPower(0);
