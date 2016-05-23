@@ -16,6 +16,9 @@ public class OpModeCougarWoods3 extends OpMode{
 
   private double swingPower = 0.5;
   private boolean overrideWheels = false;
+  private long timerCurrent = 0;
+  private long timerUse = 0;
+  private int position = 0;
   //movement variables
   private DcMotor backLeft;
   private DcMotor backRight;
@@ -204,113 +207,77 @@ public class OpModeCougarWoods3 extends OpMode{
   }
 
   public void konamiCode() {
-    int p = 0;
 
     telemetry.clearData();
 
-    telemetry.addData("POSITION", p);
+    timerCurrent = telemetry.getTimestamp();
 
-    sleep(500);
+    long time = timerCurrent - timerUse;
 
-    if (gamepad1.dpad_up) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
+    long timer = 1000 - time;
 
-    sleep(500);
+    telemetry.addData("POSITION", position);
 
-    if (gamepad1.dpad_up && p == 1) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_down && p == 2) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_down && p == 3) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_left && p == 4) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_right && p == 5) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_left && p == 6) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.dpad_right && p == 7) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.b && p == 8) {
-      p += 1;
-    } else {
-      telemetry.clearData();
-      return;
-    }
-
-    sleep(500);
-
-    if (gamepad1.a && p == 9) {
+    if (gamepad1.dpad_up && position == 0 && timer >= 0) {
+      position = 1;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_up && position == 1 && timer >= 0) {
+      position = 2;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_down && position == 2 && timer >= 0) {
+      position = 3;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_down && position == 3 && timer >= 0) {
+      position = 4;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_left && position == 4 && timer >= 0) {
+      position = 5;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_right && position == 5 && timer >= 0) {
+      position = 6;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_left && position == 6 && timer >=0) {
+      position = 7;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.dpad_right && position == 7 && timer >= 0) {
+      position = 8;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.b && position == 8 && timer >= 0) {
+      position = 9;
+      timerUse = telemetry.getTimestamp();
+      konamiCode();
+    } else if (gamepad1.a && position == 9 && timer >= 0) {
       frontRight.setPower(1);
       frontLeft.setPower(-1);
-      backRight.setPower(-1);
-      backLeft.setPower(1);
+      backRight.setPower(1);
+      backLeft.setPower(-1);
       sleep(1000);
       frontRight.setPower(-1);
       frontLeft.setPower(1);
-      backRight.setPower(1);
-      backLeft.setPower(-1);
+      backRight.setPower(-1);
+      backLeft.setPower(1);
       sleep(1000);
       frontRight.setPower(0);
       frontLeft.setPower(0);
       backRight.setPower(0);
       backLeft.setPower(0);
+      timerUse = 0;
+      timerCurrent = 0;
+      position = 0;
+      return;
+    } else if (timer >= 0) {
+      konamiCode();
+    } else {
+      return;
     }
-
-    telemetry.clearData();
   }
 
   private void sleep(int ms) {
