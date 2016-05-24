@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  * Created by Mary on 1/8/16, edited on 5/2/16.
  */
 public class OpModeCougarWoodsJoe extends OpMode{
-
+//"'I have a large baby'- Joe whatever your last name is 2016"
 
     private byte modeAmount = 2;
     //byte variables
@@ -19,7 +19,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private int toggleMode = 0;
     //integer variables
     private long working = telemetry.getTimestamp();
-    //long variablesx
+    //long variables
     private double swingPower = 0.5;
     private double range = 0.05;
     //double variables
