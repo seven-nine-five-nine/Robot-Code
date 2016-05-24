@@ -249,7 +249,9 @@ public class OpModeCougarWoods3 extends OpMode{
       konamiCode();
     } else if (gamepad1.a && position == 9 && timer >= 0) {
       telemetry.clearData();
-      telemetry.addData("Make him dance, yo SWAG", "");
+      telemetry.addData("Make him dance, yo!  SWAG", "");
+      sleep(250);
+      telemetry.clearData();
       frontRight.setPower(1);
       frontLeft.setPower(-1);
       backRight.setPower(1);

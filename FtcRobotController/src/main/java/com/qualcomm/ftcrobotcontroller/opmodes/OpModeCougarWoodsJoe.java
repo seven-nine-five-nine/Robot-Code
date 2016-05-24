@@ -19,7 +19,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
     private int toggleMode = 0;
     //integer variables
     private long working = telemetry.getTimestamp();
-    //long variables
+    //long variablesx
     private double swingPower = 0.5;
     private double range = 0.05;
     //double variables
