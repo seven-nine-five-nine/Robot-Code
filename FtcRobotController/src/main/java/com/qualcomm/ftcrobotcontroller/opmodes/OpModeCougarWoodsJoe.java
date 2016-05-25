@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  * Created by Mary on 1/8/16, edited on 5/2/16.
  */
 public class OpModeCougarWoodsJoe extends OpMode{
-//"'I have a large baby'- Joe whatever your last name is 2016"
-//     - Jasera
+    //"'I have a large baby'- Joe whatever your last name is 2016"
+    //     - Jasera
     private byte modeAmount = 2;
     //byte variables
     private int modeInput = modeAmount - 1;
@@ -114,7 +114,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
         telemetry.addData("MOVEMENT MODE", modeName);
 
-        if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+        if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y) && toggleMode == 1) {
             if (gamepad1.left_stick_x > min) {
                 frm += 1;
                 flm -= 1;
@@ -126,7 +126,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
                 brm += 1;
                 blm -= 1;
             }
-        } else if (Math.abs(gamepad1.left_stick_y) >= Math.abs(gamepad1.left_stick_x)) {
+        } else if (Math.abs(gamepad1.left_stick_y) >= Math.abs(gamepad1.left_stick_x) && toggleMode == 1) {
             if (gamepad1.left_stick_y > min) {
                 frm += 1;
                 flm += 1;

@@ -58,9 +58,10 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("OpModeCougarWoods3", OpModeCougarWoods3.class);
+    manager.register("OpModeCougarWoods3 Random", OpModeCougarWoods3.class);
     manager.register("OpModeAirplaneRobot", OpModeAirplaneRobot.class);
     manager.register("OpModeCougarWoodsJoe (unfinished)", OpModeCougarWoodsJoe.class);
+    manager.register("OpModeCougarWoods3 Main", OpModeCougarWoodsMain.class);
 
 
 
