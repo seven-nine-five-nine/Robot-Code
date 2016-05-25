@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
  */
 public class OpModeCougarWoodsJoe extends OpMode{
 //"'I have a large baby'- Joe whatever your last name is 2016"
-
+//     - Jasera
     private byte modeAmount = 2;
     //byte variables
     private int modeInput = modeAmount - 1;
