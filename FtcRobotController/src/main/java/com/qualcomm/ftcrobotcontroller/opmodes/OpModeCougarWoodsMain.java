@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by Mary on 1/8/16, edited on 5/2/16.
  */
-public class OpModeCougarWoods3 extends OpMode{
+public class OpModeCougarWoodsMain extends OpMode{
 
     //To create a proper variable(?) just program it to actually do something.
     //Then it'll turn purple like the rest.
