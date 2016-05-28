@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- * Created by Mary on 1/8/16, edited on 5/23/16.
+ * Created by Mary on 1/8/16, edited on 5/2/16.
  */
-public class OpModeCougarWoodsMain extends OpMode{
+public class OpModeCougarWoods3 extends OpMode{
 
     //To create a proper variable(?) just program it to actually do something.
     //Then it'll turn purple like the rest.
@@ -16,9 +16,6 @@ public class OpModeCougarWoodsMain extends OpMode{
 
     private double swingPower = 0.5;
     private boolean overrideWheels = false;
-    private long timerCurrent = 0;
-    private long timerUse = 0;
-    private int position = 0;
     //movement variables
     private DcMotor backLeft;
     private DcMotor backRight;
@@ -66,8 +63,8 @@ public class OpModeCougarWoodsMain extends OpMode{
         double flo = 0;
         double bro = 0;
         double blo = 0;
-        boolean yox = false;
-        boolean xoy = false;
+        boolean yox;
+        boolean xoy;
         boolean triggersOn;
         // for movement
         double cs = 0.05;
@@ -77,8 +74,10 @@ public class OpModeCougarWoodsMain extends OpMode{
         double sp = swingPower * 100;
         // double for display
 
-        while (gamepad1.left_stick_x >= minm || gamepad1.left_stick_x >= -minm) {
+        if (gamepad1.left_stick_x >= minm || gamepad1.left_stick_x >= -minm) {
             xoy = true;
+        } else {
+            xoy = false;
         }
 
         while (((gamepad1.left_stick_y >= min) || (gamepad1.left_stick_y <= -min)) && !xoy) {
@@ -88,8 +87,10 @@ public class OpModeCougarWoodsMain extends OpMode{
             blm += gamepad1.left_stick_y;
         }
 
-        while (gamepad1.left_stick_y >= minm || gamepad1.left_stick_y <= -minm) {
+        if (gamepad1.left_stick_y >= minm || gamepad1.left_stick_y <= -minm) {
             yox = true;
+        } else {
+            yox = false;
         }
 
         while (((gamepad1.left_stick_x >= min) || (gamepad1.left_stick_x <= -min)) && !yox) {
@@ -105,20 +106,22 @@ public class OpModeCougarWoodsMain extends OpMode{
             bro = 0;
             blo = 1;
             overrideWheels = true;
-        } else if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
+        }
+
+        if (gamepad1.right_bumper && !gamepad1.left_bumper && !gamepad1.y) {
             fro = 0;
             flo = 1;
             bro = 1;
             blo = 0;
             overrideWheels = true;
-        } else if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
+        }
+
+        if (gamepad1.y && !(gamepad1.right_bumper) && !(gamepad1.left_bumper)) {
             fro = -1;
             flo = -1;
             bro = -1;
             blo = -1;
             overrideWheels = true;
-        } else {
-            overrideWheels = false;
         }
 
         if (gamepad1.left_trigger >= min) {
@@ -135,6 +138,10 @@ public class OpModeCougarWoodsMain extends OpMode{
             triggersOn = true;
         } else {
             triggersOn = false;
+        }
+
+        if ((!(gamepad1.y) && !(gamepad1.right_bumper) && !(gamepad1.left_bumper))) {
+            overrideWheels = false;
         }
 
         if (triggersOn) {
@@ -246,4 +253,3 @@ public class OpModeCougarWoodsMain extends OpMode{
     }
 
 }
-

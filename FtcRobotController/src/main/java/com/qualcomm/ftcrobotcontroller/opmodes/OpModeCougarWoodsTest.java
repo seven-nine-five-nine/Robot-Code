@@ -45,7 +45,7 @@ public class OpModeCougarWoodsTest extends OpMode{
         int bl = 0;
         int fr = 0;
         int fl = 0;
-        double gc = 0;
+        int gc = 0;
         if (gamepad1.dpad_up && !gamepad1.b) {
             fr = 1;
         } else if (gamepad1.dpad_up) {
@@ -67,14 +67,14 @@ public class OpModeCougarWoodsTest extends OpMode{
             fl = -1;
         }
         if (gamepad1.a && gamepad1.b) {
-            gc = 0.2;
+            gc = 1;
         } else if (gamepad1.a) {
-            gc = 0.2;
+            gc = -1;
         }
         frontRight.setPower(fr);
         frontLeft.setPower(fl);
         backRight.setPower(br);
         backLeft.setPower(bl);
-        golfClub.setPower(gc);
+        golfClub.setPower(gc / 5);
     }
 }
