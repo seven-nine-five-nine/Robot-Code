@@ -21,7 +21,6 @@ public class OpModeAirplaneRobot extends OpMode{
     private DcMotor tapeMeasure2;
 
     private double launchSpeed = 0;
-    private double launchSpeedMod = 0;
 
     @Override
     public void init() {
@@ -48,7 +47,6 @@ public class OpModeAirplaneRobot extends OpMode{
 
     @Override
     public void loop() {
-        double ls;
         float throttle = -gamepad1.left_stick_y;
         float direction = gamepad1.left_stick_x;
         float right = throttle - direction;
@@ -70,25 +68,17 @@ public class OpModeAirplaneRobot extends OpMode{
         frontLeft.setPower(left);
 
         if (gamepad1.a && !gamepad1.b) {
-            launchSpeed = 0.75;
-        } else if (gamepad1.a) {
-            launchSpeed = -0.75;
+            launchSpeed = 1;
+        } else if (gamepad1.a)  {
+            launchSpeed = -1;
         }
 
-        if (gamepad1.left_trigger >= 0.05) {
-            launchSpeedMod -= gamepad1.left_trigger / 4;
-        } else if (gamepad1.right_trigger >= 0.05) {
-            launchSpeedMod += gamepad1.right_trigger / 4;
-        }
-
-        ls = launchSpeed + launchSpeedMod;
-
-        if (gamepad1.y) {
+        if (gamepad1.b) {
             tapeMeasure1.setPower(-0.2);
             tapeMeasure2.setPower(-0.2);
         } else {
-            tapeMeasure1.setPower(ls);
-            tapeMeasure2.setPower(ls);
+            tapeMeasure1.setPower(launchSpeed);
+            tapeMeasure2.setPower(launchSpeed);
         }
     }
 
