@@ -103,7 +103,7 @@ public class OpModeCougarWoodsJoe extends OpMode{
         }
 
         if (gamepad1.start && !recentToggle) {
-            toggleAbsolute();
+            toggleAbsolute(toggleMode);
             setMovementName();
             stateMovement = true;
         }
@@ -336,8 +336,8 @@ public class OpModeCougarWoodsJoe extends OpMode{
 
     }
 
-    private void toggleAbsolute() {
-        toggleMode = toggleMode + 1;
+    private void toggleAbsolute(int c) {
+        toggleMode = c + 1;
         if (toggleMode >= modeInput) {
             toggleMode = 0;
         }

@@ -18,7 +18,6 @@ public class OpModeAirplaneRobot extends OpMode{
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor tapeMeasure1;
-    private DcMotor tapeMeasure2;
 
     private double launchSpeed = 0;
 
@@ -29,10 +28,8 @@ public class OpModeAirplaneRobot extends OpMode{
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         tapeMeasure1 = hardwareMap.dcMotor.get("tapeMeasure1");
-        tapeMeasure2 = hardwareMap.dcMotor.get("tapeMeasure2");
 
-        tapeMeasure1.setDirection(DcMotor.Direction.FORWARD);
-        tapeMeasure2.setDirection(DcMotor.Direction.REVERSE);
+        tapeMeasure1.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         backRight.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         frontLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -75,10 +72,8 @@ public class OpModeAirplaneRobot extends OpMode{
 
         if (gamepad1.b) {
             tapeMeasure1.setPower(-0.2);
-            tapeMeasure2.setPower(-0.2);
         } else {
             tapeMeasure1.setPower(launchSpeed);
-            tapeMeasure2.setPower(launchSpeed);
         }
     }
 
